@@ -109,8 +109,8 @@ const MemoriesPage = () => (
 
 const GuestbookForm = () => {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        first_name: '',
+        last_name: '',
         role: '',
         memory: '',
         photo: ''
@@ -121,21 +121,52 @@ const GuestbookForm = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Здесь можно добавить логику для отправки данных на бэкенд
-        console.log(formData);
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            setFormData({ ...formData, photo: reader.result });
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
     };
 
-return (
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:8000/api/guestbook/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка при отправке данных');
+            }
+
+            const data = await response.json();
+            console.log('Данные успешно отправлены:', data);
+            // Здесь можно добавить логику для очистки формы или уведомления пользователя
+        } catch (error) {
+            console.error('Ошибка:', error);
+        }
+    };
+
+    return (
         <form onSubmit={handleSubmit}>
             <div>
                 <label>Имя:</label>
-                <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+                <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} required />
             </div>
             <div>
                 <label>Фамилия:</label>
-                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+                <input type="text" name="last_name" value={formData.last_name} onChange={handleChange} required />
             </div>
             <div>
                 <label>Роль:</label>
@@ -147,7 +178,7 @@ return (
             </div>
             <div>
                 <label>Фото:</label>
-                <input type="text" name="photo" value={formData.photo} onChange={handleChange} />
+                <input type="file" accept="image/*" onChange={handleFileChange} />
             </div>
             <button type="submit">Отправить</button>
         </form>
