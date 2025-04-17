@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 
@@ -86,12 +86,49 @@ const FamilyText = ({ images }) => (
     </div>
 );
 
-const PhotoPage = ({ images }) => (
-    <div>
-        <h2>Фото</h2>
-        {/* Здесь можно добавить логику для отображения фото */}
-    </div>
-);
+const PhotoPage = () => {
+    const [images, setImages] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await fetch('URL_ВАШЕГО_API'); // Замените на URL вашего API
+                if (!response.ok) {
+                    throw new Error('Ошибка при загрузке изображений');
+                }
+                const data = await response.json();
+                setImages(data); // Предполагается, что ваш API возвращает массив изображений
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchImages();
+    }, []);
+
+    if (loading) {
+        return <div>Загрузка...</div>;
+    }
+
+    if (error) {
+        return <div>Ошибка: {error}</div>;
+    }
+
+    return (
+        <div>
+            <h2>Фото</h2>
+            <div>
+                {images.map((image, index) => (
+                    <img key={index} src={image.url} alt={image.description} /> // Замените на правильные поля
+                ))}
+            </div>
+        </div>
+    );
+};
 
 const VideoPage = () => (
     <div>
