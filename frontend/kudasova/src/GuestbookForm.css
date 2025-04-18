@@ -1,0 +1,85 @@
+/* Стили для формы */
+.form-container {
+    display: flex;
+    flex-direction: column; /* Измените направление на колонку */
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+    height: 50vh; /* Высота контейнера равна высоте окна */
+    width: 100vw;
+    padding: 20px; /* Отступы */
+    box-sizing: border-box; /* Учет отступов в ширине и высоте */
+}
+
+.success-message {
+    color: green; /* Цвет текста для успешного сообщения */
+    background-color: white; /* Белый фон */
+    margin-top: 20px; /* Отступ сверху */
+    padding: 10px; /* Внутренние отступы */
+    border: 1px solid green; /* Рамка того же цвета, что и текст */
+    border-radius: 4px; /* Закругление углов */
+    font-weight: bold; /* Жирный шрифт */
+}
+
+.error-message {
+    color: red; /* Цвет текста для сообщения об ошибке */
+    background-color: white; /* Белый фон */
+    margin-top: 20px; /* Отступ сверху */
+    padding: 10px; /* Внутренние отступы */
+    border: 1px solid red; /* Рамка того же цвета, что и текст */
+    border-radius: 4px; /* Закругление углов */
+    font-weight: bold; /* Жирный шрифт */
+}
+
+
+
+form {
+    min-width: 650px;
+    max-width: 800px; /* Увеличенная максимальная ширина формы */
+    margin: 20px auto; /* Центрирование формы по горизонтали */
+    padding: 20px; /* Внутренние отступы */
+    background: var(--form-background); /* Фон формы */
+    border-radius: 8px; /* Закругление углов */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень для формы */
+}
+
+form div {
+    margin-bottom: 15px; /* Отступ между элементами формы */
+}
+
+form label {
+    display: block; /* Блоковое отображение меток */
+    margin-bottom: 5px; /* Отступ снизу от меток */
+    font-weight: bold; /* Жирный шрифт для меток */
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%; /* Полная ширина полей ввода */
+    min-width: 650px;
+    max-width: 650px;
+    padding: 10px; /* Внутренние отступы */
+    border: 1px solid var(--form-border-color); /* Цвет рамки */
+    border-radius: 4px; /* Закругление углов */
+    box-sizing: border-box; /* Учет внутренних отступов в ширине */
+}
+
+form input[type="text"]:focus,
+form textarea:focus {
+    border-color: var(--form-border-focus-color); /* Цвет рамки при фокусе */
+    outline: none; /* Убираем стандартный контур при фокусе */
+}
+
+form button {
+    width: 100%; /* Полная ширина кнопки */
+    padding: 12px; /* Увеличенные внутренние отступы для кнопки */
+    background-color: var(--primary-color); /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none; /* Убираем рамку */
+    border-radius: 4px; /* Закругление углов кнопки */
+    cursor: pointer; /* Указатель при наведении */
+    font-size: 18px; /* Увеличенный размер шрифта кнопки */
+}
+
+form button:hover {
+    background-color: var(--button-hover-background); /* Цвет фона при наведении на кнопку */
+}

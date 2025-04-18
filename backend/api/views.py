@@ -1,9 +1,7 @@
-import base64
-
-from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import generics
 
 from content.models import Image
 from memories.models import GuestbookEntry
@@ -11,8 +9,7 @@ from .serializers import ImageSerializer
 
 from .serializers import GuestbookEntrySerializer
 
-
-class ImageViewSet(viewsets.ModelViewSet):
+class ImageList(generics.ListCreateAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
 

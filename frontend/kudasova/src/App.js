@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
+import './GuestbookForm.css';
+import UploadPhotoForm from './UploadPhotoForm';
 
 function App() {
     const [images, setImages] = useState([
@@ -51,7 +53,7 @@ function App() {
 const MainText = () => (
     <div className="main-text-block">
         <h1>Кудасова Валентина Васильевна</h1>
-        <img src="/images/main_photo.jpg" alt="Main Photo" className="main-photo" />
+        <img src="/images/main_photo.jpg" alt="Main Photo" className="img-main" />
         <h3>1947 - 2012</h3>
         <p>...</p>
         <p>...</p>
@@ -71,35 +73,30 @@ const ScienceText = () => (
 const FamilyText = ({ images }) => (
     <div className="family-text-block">
         <h2>Семья</h2>
-        {images.length > 0 ? (
-            images.map(image => (
-                <div key={image.id}>
-                    <img src={image.image} alt={image.title} />
-                </div>
-            ))
-        ) : (
-            <p>Нет доступных фотографий семьи.</p>
-        )}
+        <img src="/images/family_photo.jpg" alt="Family Photo" className="img-family" />
         <p>...</p>
         <p>...</p>
         <p>...</p>
     </div>
 );
 
+
 const PhotoPage = () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showUploadForm, setShowUploadForm] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null); // Состояние для выбранного изображения
 
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await fetch('URL_ВАШЕГО_API'); // Замените на URL вашего API
+                const response = await fetch('http://localhost:8000/api/images/');
                 if (!response.ok) {
                     throw new Error('Ошибка при загрузке изображений');
                 }
                 const data = await response.json();
-                setImages(data); // Предполагается, что ваш API возвращает массив изображений
+                setImages(data);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -110,6 +107,19 @@ const PhotoPage = () => {
         fetchImages();
     }, []);
 
+    const handleUpload = (newImage) => {
+        setImages((prevImages) => [...prevImages, newImage]);
+        setShowUploadForm(false);
+    };
+
+    const handleImageClick = (image) => {
+        setSelectedImage(image); // Устанавливаем выбранное изображение
+    };
+
+    const closeModal = () => {
+        setSelectedImage(null); // Закрываем модальное окно
+    };
+
     if (loading) {
         return <div>Загрузка...</div>;
     }
@@ -119,16 +129,34 @@ const PhotoPage = () => {
     }
 
     return (
-        <div>
-            <h2>Фото</h2>
-            <div>
+        <div className="photo-page">
+            {!showUploadForm && (
+               <button className="button_add" onClick={() => setShowUploadForm(true)}>
+                Добавить фотографию
+               </button>
+            )}
+            {showUploadForm && (
+                <UploadPhotoForm onUpload={handleUpload} onClose={() => setShowUploadForm(false)} />
+            )}
+            <div className="photo-gallery">
                 {images.map((image, index) => (
-                    <img key={index} src={image.url} alt={image.description} /> // Замените на правильные поля
+                    <div className="photo-item" key={index} onClick={() => handleImageClick(image)}>
+                        <img src={image.image} alt={image.description} className="photo" />
+                        <p className="photo-description">{image.description}</p>
+                    </div>
                 ))}
             </div>
+
+            {/* Модальное окно для отображения изображения в полном размере */}
+            {selectedImage && (
+                <div className="modal" onClick={closeModal}>
+                    <img src={selectedImage.image} alt={selectedImage.description} />
+                </div>
+            )}
         </div>
     );
 };
+
 
 const VideoPage = () => (
     <div>
@@ -144,14 +172,14 @@ const MemoriesPage = () => (
     </div>
 );
 
+
 const GuestbookForm = () => {
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        role: '',
+        title: '',
         memory: '',
         photo: ''
     });
+    const [successMessage, setSuccessMessage] = useState(''); // Состояние для сообщения об успешной отправке
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -168,6 +196,8 @@ const GuestbookForm = () => {
 
         if (file) {
             reader.readAsDataURL(file);
+        } else {
+            setFormData({ ...formData, photo: '' });
         }
     };
 
@@ -189,30 +219,47 @@ const GuestbookForm = () => {
 
             const data = await response.json();
             console.log('Данные успешно отправлены:', data);
-            // Здесь можно добавить логику для очистки формы или уведомления пользователя
+            setSuccessMessage({ text: 'Данные успешно отправлены!', type: 'success' });
+
+            setFormData({
+                title: '',
+                memory: '',
+                photo: ''
+            });
         } catch (error) {
             console.error('Ошибка:', error);
+            setSuccessMessage({ text: 'Ошибка при отправке данных. Пожалуйста, попробуйте еще раз.', type: 'error' });
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Заголовок:</label>
-                <input type="text" name="title" value={formData.title} onChange={handleChange} required />
-            </div>
+        <div className="form-container">
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Заголовок:</label>
+                    <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+                </div>
 
-            <div>
-                <label>Воспоминание:</label>
-                <textarea name="memory" value={formData.memory} onChange={handleChange} required />
-            </div>
-            <div>
-                <label>Фото:</label>
-                <input type="file" accept="image/*" onChange={handleFileChange} />
-            </div>
-            <button type="submit">Отправить</button>
-        </form>
+                <div>
+                    <label>Текст:</label>
+                    <textarea name="memory" value={formData.memory} onChange={handleChange} required />
+                </div>
+                <div>
+                    <label>Фото (опционально):</label>
+                    <input type="file" accept="image/*" onChange={handleFileChange} />
+                </div>
+                <button type="submit">Отправить</button>
+            </form>
+
+            {/* Сообщение об успехе или ошибке */}
+            {successMessage && (
+                <p className={successMessage.type === 'success' ? 'success-message' : 'error-message'}>
+                    {successMessage.text}
+                </p>
+            )}
+        </div>
     );
 };
+
 
 export default App;

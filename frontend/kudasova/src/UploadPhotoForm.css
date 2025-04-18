@@ -1,0 +1,79 @@
+.upload-photo-form {
+    position: fixed; /* Фиксированное позиционирование */
+    top: 50%; /* Центрирование по вертикали */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translate(-50%, -50%); /* Сдвиг для точного центрирования */
+    background-color: white; /* Фоновый цвет формы */
+    border: 1px solid #ccc; /* Граница формы */
+    border-radius: 8px; /* Закругленные углы */
+    padding: 20px; /* Внутренние отступы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для эффекта поднятия */
+    z-index: 1000; /* Убедитесь, что форма выше других элементов */
+}
+
+.upload-photo-form h2 {
+    margin-bottom: 20px; /* Отступ между заголовком и формой */
+}
+
+.upload-photo-form form {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение элементов формы */
+    align-items: center; /* Центрирование по горизонтали */
+}
+
+.upload-photo-form input[type="file"],
+.upload-photo-form input[type="text"],
+.upload-photo-form button {
+    margin: 10px 0; /* Отступы между элементами формы */
+    width: 100%; /* Ширина элементов формы */
+    max-width: 400px; /* Максимальная ширина для элементов формы */
+}
+
+.upload-photo-form button {
+    cursor: pointer; /* Указатель при наведении на кнопку */
+}
+
+.upload-photo-form-overlay {
+    position: fixed; /* Фиксированное позиционирование */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+    z-index: 999; /* Убедитесь, что затемняющий фон ниже формы */
+    display: flex; /* Используем Flexbox для центрирования формы */
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+}
+
+.close-button {
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+    top: 0%; /* Центрирование по вертикали */
+    left: 65%; /* Центрирование по горизонтали */
+    max-width: 0px;
+    max-height: 5%;
+}
+
+.close-button:hover {
+    background-color: rgba(255, 255, 255, 0.0); /* Изменяем фон при наведении */
+    color: red; /* Цвет текста при наведении */
+}
+
+.header-title {
+    font-size: 26px; /* Размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+    color: black; /* Цвет текста */
+    background-color: white; /* Цвет фона */
+    padding: 10px; /* Внутренние отступы */
+    margin: 0; /* Убираем отступы */
+    display: flex; /* Используем Flexbox для центрирования текста */
+    justify-content: center; /* Центрируем текст по горизонтали */
+    align-items: center; /* Центрируем текст по вертикали */
+    border-radius: 8px;
+    min-width: 0;
+}
+
+
+

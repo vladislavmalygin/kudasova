@@ -7,7 +7,7 @@ from memories.models import GuestbookEntry
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = '__all__'
+        fields = ['id', 'image', 'description']
 
 
 class GuestbookEntrySerializer(serializers.ModelSerializer):
