@@ -198,17 +198,10 @@ const GuestbookForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <label>Имя:</label>
-                <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} required />
+                <label>Заголовок:</label>
+                <input type="text" name="title" value={formData.title} onChange={handleChange} required />
             </div>
-            <div>
-                <label>Фамилия:</label>
-                <input type="text" name="last_name" value={formData.last_name} onChange={handleChange} required />
-            </div>
-            <div>
-                <label>Роль:</label>
-                <input type="text" name="role" value={formData.role} onChange={handleChange} />
-            </div>
+
             <div>
                 <label>Воспоминание:</label>
                 <textarea name="memory" value={formData.memory} onChange={handleChange} required />

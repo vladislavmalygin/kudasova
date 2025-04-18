@@ -1,5 +1,4 @@
-apparmor==4.0.3
-attrs==23.2.1.dev0
+attrs
 autocommand==2.2.2
 cffi==1.17.1
 cryptography==44.0.2
@@ -10,7 +9,6 @@ jaraco.context==6.0.1
 jaraco.functools==4.1.0
 jaraco.text==4.0.0
 legacy-cgi==2.6.3
-LibAppArmor==4.0.3
 more-itertools==10.6.0
 packaging==24.2
 platformdirs==4.3.6
@@ -21,3 +19,7 @@ ranger-fm==1.9.4
 setuptools==75.8.0
 shadowsocks==3.0.0
 wheel==0.45.1
+Django
+Pillow
+Django-rest-framework
+Django_cors_headers
