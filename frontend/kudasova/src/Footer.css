@@ -1,0 +1,24 @@
+/* Footer.css */
+.footer {
+    background-color: #f5e7e6; /* Цвет фона футера */
+    color: white; /* Цвет текста футера */
+    text-align: center; /* Выравнивание текста по центру */
+    padding: 10px 0; /* Отступы сверху и снизу */
+    position: relative; /* Позиционирование */
+    bottom: 0; /* Положение внизу */
+    width: 100%; /* Ширина футера */
+}
+
+.white-strip {
+    height: 20px; /* Высота белой полоски */
+    background-color: white; /* Цвет белой полоски */
+}
+
+.footer-content {
+    background-color: #D8BFD8; /* Цвет фона для текста футера */
+    color: black; /* Черный цвет текста внутри футера */
+    border: 2px solid #DDA0DD; /* Рамка вокруг текста */
+    display: inline-block; /* Чтобы рамка оборачивала текст */
+    padding: 10px; /* Отступы внутри рамки */
+    border-radius: 10px; /* Закругленные углы рамки */
+}

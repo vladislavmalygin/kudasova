@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import './GuestbookForm.css';
 import UploadPhotoForm from './UploadPhotoForm';
+import Footer from './Footer';
 
 function App() {
     const [images, setImages] = useState([
@@ -45,6 +46,8 @@ function App() {
                         } />
                     </Routes>
                 </main>
+                <div className="white-strip"></div> {/* Белая полоска сверху */}
+                 <Footer />
             </div>
         </Router>
     );
