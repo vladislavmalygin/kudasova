@@ -4,6 +4,7 @@ import './App.css';
 import './GuestbookForm.css';
 import UploadPhotoForm from './UploadPhotoForm';
 import Footer from './Footer';
+import './MemoriesPage.css';
 
 function App() {
     const [images, setImages] = useState([
@@ -11,7 +12,7 @@ function App() {
         { id: 2, title: 'Family Photo', image: '/images/family_photo.jpg', category: 'family' },
     ]);
 
-    const [blockOrder, setBlockOrder] = useState(['family', 'main', 'science']);
+    const [blockOrder, setBlockOrder] = useState(['main', 'family', 'science']);
 
     return (
         <Router>
@@ -27,6 +28,7 @@ function App() {
                         <Link to="/memories"><button>Воспоминания</button></Link>
                         <Link to="/guestbook"><button>Гостевая книга</button></Link>
                     </nav>
+
                 </header>
                 <main className="main-background">
                     <Routes>
@@ -34,24 +36,25 @@ function App() {
                         <Route path="/video" element={<VideoPage />} />
                         <Route path="/memories" element={<MemoriesPage />} />
                         <Route path="/guestbook" element={<GuestbookForm />} />
-                        <Route path="/" element={
-                            <>
-                                {blockOrder.map(block => {
-                                    if (block === 'main') return <MainText key="main" />;
-                                    if (block === 'family') return <FamilyText key="family" images={images.filter(image => image.category === 'family')} />;
-                                    if (block === 'science') return <ScienceText key="science" />;
-                                    return null;
-                                })}
-                            </>
-                        } />
+                        <Route path="/" element={<MainContainer blockOrder={blockOrder} images={images} />} />
                     </Routes>
                 </main>
-                <div className="white-strip"></div> {/* Белая полоска сверху */}
-                 <Footer />
+                <Footer />
             </div>
         </Router>
     );
 }
+
+const MainContainer = ({ blockOrder, images }) => (
+    <div className="main-container">
+        {blockOrder.map(block => {
+            if (block === 'main') return <MainText key="main" />;
+            if (block === 'family') return <FamilyText key="family" images={images.filter(image => image.category === 'family')} />;
+            if (block === 'science') return <ScienceText key="science" />;
+            return null;
+        })}
+    </div>
+);
 
 const MainText = () => (
     <div className="main-text-block">
@@ -161,19 +164,72 @@ const PhotoPage = () => {
 };
 
 
-const VideoPage = () => (
-    <div>
-        <h2>Видео</h2>
-        {/* Здесь можно добавить логику для отображения видео */}
-    </div>
-);
+const VideoPage = () => {
+    const [videos, setVideos] = useState([]);
 
-const MemoriesPage = () => (
-    <div>
-        <h2>Воспоминания</h2>
-        {/* Здесь можно добавить логику для отображения воспоминаний */}
-    </div>
-);
+    useEffect(() => {
+        const fetchVideos = async () => {
+            const response = await fetch('http://127.0.0.1:8000/api/videos/');
+            const data = await response.json();
+            setVideos(data);
+        };
+
+        fetchVideos();
+    }, []);
+
+    return (
+        <div className="video-page">
+
+            {videos.length > 0 ? (
+                <div className="video-gallery">
+                    {videos.map((videoUrl, index) => (
+                        <div className="video-item" key={index}>
+                            <video className="video" controls>
+                                <source src={videoUrl} type="video/webm" />
+                                Ваш браузер не поддерживает видео.
+                            </video>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p>Загрузка видео...</p>
+            )}
+        </div>
+    );
+};
+
+
+const MemoriesPage = () => {
+    const [memories, setMemories] = useState([]);
+
+    useEffect(() => {
+        const fetchMemories = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/memories/');
+                const data = await response.json();
+                setMemories(data);
+            } catch (error) {
+                console.error('Ошибка при получении воспоминаний:', error);
+            }
+        };
+
+        fetchMemories();
+    }, []);
+
+    return (
+        <div>
+            <div className="memories-container">
+                {memories.map((memory) => (
+                    <div className="memory-block" key={memory.id}>
+                        <h3>{memory.title}</h3>
+                        <p>{memory.memory}</p>
+                        {memory.photo && <img src={memory.photo} alt={memory.title} />}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
 
 const GuestbookForm = () => {

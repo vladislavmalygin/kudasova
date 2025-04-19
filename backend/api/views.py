@@ -1,9 +1,12 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.response import Response
+import os
+from django.http import JsonResponse
+from django.conf import settings
 
-from content.models import Image
+from content.models import Image, Video
 from memories.models import GuestbookEntry, Memory
 from .serializers import (ImageSerializer, MemorySerializer,
                           GuestbookEntrySerializer)
@@ -40,3 +43,10 @@ def memories(request):
         approved_memories = Memory.objects.filter(approved=True)
         serializer = MemorySerializer(approved_memories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+def list_videos(request):
+    video_dir = os.path.join(settings.MEDIA_ROOT, 'videos')
+    videos = [f for f in os.listdir(video_dir) if f.endswith('.webm')]
+    video_urls = [f"http://127.0.0.1:8000/media/videos/{video}" for video in videos]
+    return JsonResponse(video_urls, safe=False)

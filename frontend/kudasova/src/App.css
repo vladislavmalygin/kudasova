@@ -52,91 +52,75 @@ button:hover {
     color: white; /* Цвет текста при наведении */
 }
 
-main {
-    display: flex;
-    flex-direction: row; /* Изменяем направление на строку */
-    justify-content: space-between; /* Распределяем элементы по горизонтали */
-    align-items: flex-start; /* Выравнивание по верхнему краю */
-    margin-top: 2vh;
+/* Контейнер для главной страницы */
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Один столбец */
+    gap: 20px; /* Отступы между блоками */
+    max-height: 80vh; /* Максимальная высота контейнера */
+    max-width: 100%; /* Максимальная ширина контейнера */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    overflow-x: auto; /* Включаем горизонтальную прокрутку */
+    padding: 10px; /* Внутренние отступы для контейнера */
+    margin-left: auto; /* Центрирование контейнера */
+    margin-right: auto; /* Центрирование контейнера */
+    max-width: 100%; /* Ограничиваем ширину изображения */
+    max-height: 100%; /* Ограничиваем ширину изображения */
 }
 
-.image-container {
-    display: flex;
-    flex-wrap: wrap; /* Перенос изображений на новую строку */
-    justify-content: center; /* Центрирование изображений */
+/* Общие стили для текстовых блоков */
+.main-text-block, .science-text-block, .family-text-block {
+    background-color: white;
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 8px; /* Закругленные углы */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для блока */
+    display: flex; /* Используем flexbox для центрирования содержимого */
+    flex-direction: column; /* Вертикальное направление */
+    align-items: center; /* Центрирование по горизонтали */
+    text-align: center; /* Центрирование текста */
+    margin-left: auto; /* Центрирование контейнера */
+    margin-right: auto; /* Центрирование контейнера */
+    max-width: 40%; /* Ограничиваем ширину изображения */
+    max-height: 100%; /* Ограничиваем ширину изображения */
+
 }
 
+/* Стили для заголовков */
+.main-text-block h1,
+.science-text-block h2,
+.family-text-block h2 {
+    color: #333; /* Темный цвет текста */
+    font-family: 'Arial', sans-serif; /* Шрифт */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+/* Стили для главного изображения */
 .img-main {
-    max-width: 30vh; /* Ограничение ширины для главного изображения */
-    height: auto; /* Автоматическая высота для сохранения пропорций */
-    border-radius: 15px; /* Закругление углов для главного изображения */
+    max-width: 30%; /* Ограничиваем ширину главного изображения */
+    height: auto; /* Автоматическая высота */
+    border-radius: 4px; /* Закругленные углы для главного изображения */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Тень для главного изображения */
 }
 
+/* Стили для изображений семьи */
 .img-family {
-    max-width: 40vh; /* Ограничение ширины для изображений семьи */
-    height: auto; /* Автоматическая высота для сохранения пропорций */
-    border-radius: 8px; /* Закругление углов для изображений семьи */
-    box-shadow: 0 2px 5px var(--text-block-shadow); /* Тень для изображений семьи */
-}
-
-.image-item {
-    margin: 10px; /* Отступ между изображениями */
-    overflow: hidden; /* Скрытие переполнения */
+    max-width: 50%; /* Ограничиваем ширину изображений семьи */
+    height: auto; /* Автоматическая высота */
+    border-radius: 4px; /* Закругленные углы для изображений семьи */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень для изображений семьи */
 }
 
 
-.main-text-block {
-    background-color: var(--text-block-background); /* Используем переменную */
-    padding: 2vw;
-    border-radius: 3vw;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 2vh;
-    margin-left: 1vw;
-    text-align: center;
-    display: grid;
-    place-items: center;
+/* Стили для параграфов */
+.main-text-block p,
+.science-text-block p,
+.family-text-block p {
+    color: #555; /* Более светлый цвет текста */
+    line-height: 1.6; /* Высота строки для лучшей читаемости */
+    margin: 0; /* Убираем отступы у параграфа */
 }
 
-.science-text-block,
-.family-text-block {
-    background: var(--text-block-background); /* Используем переменную */
-    padding: 2vh;
-    border-radius: 3vw;
-    box-shadow: 0 10px 5px var(--text-block-shadow); /* Используем переменную для тени текстового блока */
-    margin-bottom: 2vh;
-    text-align: center;
-    display: grid;
-    place-items: center;
-}
 
-.science-text-block {
-    margin-right: 40px; /* Специфичный стиль для science текст блока */
-    margin-left: 40px;
-}
-
-.family-text-block {
-    margin-left: 40px; /* Специфичный стиль для family текст блока */
-}
-
-.text-block h1,
-.text-block h2 {
-    margin: 0; /* Убираем отступы у заголовков */
-}
-
-.text-block p {
-    text-align: center; /* Центрирование текста в текстовом блоке */
-}
-
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5em;
-}
-
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5em;
-}
 
 .main-background {
     position: relative; /* Для позиционирования псевдоэлемента */
@@ -223,6 +207,40 @@ h1 {
     font-size: 20px;
     cursor: pointer;
 }
+
+.video-page {
+    padding: 40px; /* Отступы вокруг страницы */
+}
+
+.video-gallery {
+    display: flex; /* Используем Flexbox для размещения видео */
+    flex-wrap: wrap; /* Позволяем переносить элементы на новую строку */
+    justify-content: center; /* Центрируем видео по горизонтали */
+}
+
+.video-item {
+    background-color: white; /* Белый фон для каждого элемента */
+    border: 1px solid #ddd; /* Легкая рамка вокруг элемента */
+    border-radius: 8px; /* Закругление углов */
+    margin: 10px; /* Отступы между элементами */
+    padding: 10px; /* Внутренние отступы */
+    text-align: center; /* Центрируем текст */
+    width: 400px; /* Ширина элемента */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень для эффекта поднятия */
+}
+
+.video {
+    width: 100%; /* Ширина видео 100% от родительского элемента */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    border-radius: 4px; /* Закругление углов видео */
+}
+
+.video-description {
+    margin-top: 10px; /* Отступ сверху для описания */
+    font-size: 14px; /* Размер шрифта для описания */
+    color: #555; /* Цвет текста для описания */
+}
+
 
 
 .button_add {

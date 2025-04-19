@@ -1,0 +1,34 @@
+.memories-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px; /* Отступы между блоками */
+    max-height: 80vh; /* Максимальная высота контейнера */
+    max-width: 80%; /* Максимальная ширина контейнера */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    overflow-x: auto; /* Включаем горизонтальную прокрутку */
+    padding: 10px; /* Внутренние отступы для контейнера */
+    border: 1px solid #ccc; /* Граница вокруг контейнера */
+    border-radius: 8px; /* Закругленные углы для контейнера */
+    background-color: #D8BFD8; /* Цвет фона контейнера */
+    margin-left: 28vw; /* Отступ слева */
+    margin-right: 28vw; /* Отступ слева */
+}
+
+.memory-block {
+    background-color: white; /* Белый фон */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 8px; /* Закругленные углы */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для блока */
+    min-width: 300px; /* Минимальная ширина блока, чтобы обеспечить горизонтальную прокрутку */
+}
+
+.memory-block img {
+    max-width: 100%; /* Ограничиваем ширину изображения */
+    height: auto; /* Автоматическая высота */
+    border-radius: 4px; /* Закругленные углы для изображения */
+}
+
+.memory-block p {
+    white-space: pre-wrap; /* Сохраняем форматирование текста */
+    margin: 0; /* Убираем отступы у параграфа */
+}

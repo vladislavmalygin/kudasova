@@ -1,6 +1,6 @@
 /* Footer.css */
 .footer {
-    background-color: #f5e7e6; /* Цвет фона футера */
+    background-color: #e3cfe3; /* Цвет фона футера */
     color: white; /* Цвет текста футера */
     text-align: center; /* Выравнивание текста по центру */
     padding: 10px 0; /* Отступы сверху и снизу */
@@ -10,7 +10,7 @@
 }
 
 .white-strip {
-    height: 20px; /* Высота белой полоски */
+    height: 15px; /* Высота белой полоски */
     background-color: white; /* Цвет белой полоски */
 }
 

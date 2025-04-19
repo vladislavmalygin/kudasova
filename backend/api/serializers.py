@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from content.models import Image
+from content.models import Image, Video
 from memories.models import GuestbookEntry, Memory
 
 
