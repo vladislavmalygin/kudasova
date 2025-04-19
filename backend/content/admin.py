@@ -6,4 +6,3 @@ from .models import Image
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('description',)
     search_fields = ('description',)
-

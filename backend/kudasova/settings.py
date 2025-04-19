@@ -20,7 +20,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     #project_apps
-    'mainpage',
     'memories',
     'content',
     'api'

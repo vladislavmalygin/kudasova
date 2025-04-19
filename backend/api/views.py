@@ -4,10 +4,9 @@ from rest_framework.response import Response
 from rest_framework import generics
 
 from content.models import Image
-from memories.models import GuestbookEntry
-from .serializers import ImageSerializer
-
-from .serializers import GuestbookEntrySerializer
+from memories.models import GuestbookEntry, Memory
+from .serializers import (ImageSerializer, MemorySerializer,
+                          GuestbookEntrySerializer)
 
 class ImageList(generics.ListCreateAPIView):
     queryset = Image.objects.all()
@@ -24,6 +23,20 @@ def guestbook_entry(request):
 
         serializer = GuestbookEntrySerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            guestbook_entry_instance = serializer.save()
+            # Создаем запись в модели Memory
+            Memory.objects.create(
+                title=guestbook_entry_instance.title,
+                memory=guestbook_entry_instance.memory,
+                photo=guestbook_entry_instance.photo,
+                approved=False  # По умолчанию false
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def memories(request):
+    if request.method == 'GET':
+        approved_memories = Memory.objects.filter(approved=True)
+        serializer = MemorySerializer(approved_memories, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
