@@ -228,7 +228,7 @@ h1 {
 .button_add {
     position: relative;
     top: -5vh;
-    right: -40vw;
+    right: -40.8vw;
     background-color: var(--button-background); /* Используем переменную */
     border: none;
     color: var(--button-text-color); /* Используем переменную */
