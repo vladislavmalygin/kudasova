@@ -1,13 +1,14 @@
 from pathlib import Path
 import os
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-jvns5(3-_d3azgf@mcr6+lm(%i&r-i5b)+v9qe9ig)800rpj7i'
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
