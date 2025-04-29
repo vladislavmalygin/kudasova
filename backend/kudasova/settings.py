@@ -1,14 +1,17 @@
 from pathlib import Path
 import os
-from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config('SECRET_KEY')
+# Используйте строку по умолчанию для SECRET_KEY
+SECRET_KEY = 'your-secret-key'
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+# Установите DEBUG в True для разработки
+DEBUG = True
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+# Установите ALLOWED_HOSTS в пустой список по умолчанию
+ALLOWED_HOSTS = []
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
