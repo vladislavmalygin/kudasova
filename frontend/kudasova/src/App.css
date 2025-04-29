@@ -1,7 +1,7 @@
 :root {
-    --primary-color: #D8BFD8; /* Основной цвет */
+    --primary-color: #d305f7; /* Основной цвет */
     --button-background: white; /* Цвет фона кнопки */
-    --button-hover-background: #DDA0DD; /* Цвет фона кнопки при наведении */
+    --button-hover-background: #df38fc; /* Цвет фона кнопки при наведении */
     --button-text-color: black; /* Цвет текста кнопки */
     --text-block-background: white; /* Цвет фона текстового блока */
     --text-block-shadow: rgba(0, 0, 0, 0.1); /* Тень для текстового блока */
