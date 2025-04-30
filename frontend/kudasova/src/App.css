@@ -246,7 +246,7 @@ button:hover {
 .button_add {
     position: relative;
     top: -5vh;
-    right: -40.8vw;
+    right: -41vw;
     background-color: var(--button-background); /* Используем переменную */
     border: none;
     color: var(--button-text-color); /* Используем переменную */

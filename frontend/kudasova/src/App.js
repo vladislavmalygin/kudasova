@@ -97,7 +97,7 @@ const PhotoPage = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/images/');
+                const response = await fetch('http://45.141.103.210/api/images/');
                 if (!response.ok) {
                     throw new Error('Ошибка при загрузке изображений');
                 }
@@ -169,7 +169,7 @@ const VideoPage = () => {
 
     useEffect(() => {
         const fetchVideos = async () => {
-            const response = await fetch('http://127.0.0.1:8000/api/videos/');
+            const response = await fetch('/home/vlad/kudasova/backend/media/videos');
             const data = await response.json();
             setVideos(data);
         };
@@ -205,7 +205,7 @@ const MemoriesPage = () => {
     useEffect(() => {
         const fetchMemories = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/memories/');
+                const response = await fetch('http://45.141.103.210/api/memories/');
                 const data = await response.json();
                 setMemories(data);
             } catch (error) {
@@ -264,7 +264,7 @@ const GuestbookForm = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8000/api/guestbook/', {
+            const response = await fetch('http://45.141.103.210/api/guestbook/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
