@@ -81,20 +81,20 @@ const PhotoPage = () => {
     const [selectedImage, setSelectedImage] = useState(null); // Состояние для выбранного изображения
 
     useEffect(() => {
-        const fetchImages = async () => {
-            try {
-                const response = await fetch('http://localhost:8000/api/images/');
-                if (!response.ok) {
-                    throw new Error('Ошибка при загрузке изображений');
-                }
-                const data = await response.json();
-                setImages(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+       const fetchImages = async () => {
+           try {
+               const response = await fetch('http://45.141.103.210/api/images/');
+               if (!response.ok) {
+                   throw new Error('Ошибка при загрузке изображений');
+               }
+               const data = await response.json();
+               setImages(data);
+           } catch (err) {
+               setError(err.message);
+           } finally {
+               setLoading(false);
+           }
+       };
 
         fetchImages();
     }, []);
@@ -155,7 +155,7 @@ const VideoPage = () => {
 
     useEffect(() => {
         const fetchVideos = async () => {
-            const response = await fetch('http://127.0.0.1:8000/api/videos/');
+            const response = await fetch('http://45.141.103.210/api/videos/');
             const data = await response.json();
             setVideos(data);
         };
@@ -191,7 +191,7 @@ const MemoriesPage = () => {
     useEffect(() => {
         const fetchMemories = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/memories/');
+                const response = await fetch('http://45.141.103.210/api/memories/');
                 const data = await response.json();
                 setMemories(data);
             } catch (error) {
@@ -250,7 +250,7 @@ const GuestbookForm = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8000/api/guestbook/', {
+            const response = await fetch('http://45.141.103.210/api/guestbook/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -312,7 +312,7 @@ const PoemsPage = () => {
     useEffect(() => {
         const fetchPoems = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/poems/');
+                const response = await fetch('backend/api//poems/');
                 const data = await response.json();
                 setPoems(data);
             } catch (error) {

@@ -1,16 +1,18 @@
 from pathlib import Path
 import os
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Используйте строку по умолчанию для SECRET_KEY
-SECRET_KEY = 'your-secret-key'
+SECRET_KEY = config('SECRET_KEY')
 
-# Установите DEBUG в True для разработки
+#DEBUG = config('DEBUG', default=False, cast=bool)
+
 DEBUG = True
 
-# Установите ALLOWED_HOSTS в пустой список по умолчанию
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+
 
 
 INSTALLED_APPS = [
@@ -94,10 +96,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static_backend/'
+STATIC_ROOT = BASE_DIR/ 'static_backend'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='http://localhost').split(',')
