@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ImageList, guestbook_entry, memories, list_videos
+from .views import ImageList, guestbook_entry, memories, list_videos, PoemList
 
 router = DefaultRouter()
 
@@ -10,5 +10,6 @@ urlpatterns = [
     path('images/', ImageList.as_view(), name='image-list'),
     path('memories/', memories, name='memories'),
     path('videos/', list_videos, name='list_videos'),
+    path('poems/', PoemList.as_view(), name='poem-list'),
 ]
 

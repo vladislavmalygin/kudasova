@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from content.models import Image, Video
+from content.models import Image, Video, Poem
 from memories.models import GuestbookEntry, Memory
 
 
@@ -19,4 +19,10 @@ class GuestbookEntrySerializer(serializers.ModelSerializer):
 class MemorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Memory
+        fields = '__all__'
+
+
+class PoemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Poem
         fields = '__all__'

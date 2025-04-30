@@ -24,9 +24,11 @@ function App() {
 
                         {/* Остальные кнопки навигации */}
                         <Link to="/photo"><button>Фото</button></Link>
-                        <Link to="/video"><button>Видео</button></Link>
+
                         <Link to="/memories"><button>Воспоминания</button></Link>
+                        <Link to="/poems"><button>Стихи</button></Link>
                         <Link to="/guestbook"><button>Гостевая книга</button></Link>
+
                     </nav>
 
                 </header>
@@ -37,6 +39,7 @@ function App() {
                         <Route path="/memories" element={<MemoriesPage />} />
                         <Route path="/guestbook" element={<GuestbookForm />} />
                         <Route path="/" element={<MainContainer blockOrder={blockOrder} images={images} />} />
+                        <Route path="/poems" element={<PoemsPage />} />
                     </Routes>
                 </main>
                 <Footer />
@@ -303,5 +306,35 @@ const GuestbookForm = () => {
     );
 };
 
+const PoemsPage = () => {
+    const [poems, setPoems] = useState([]);
+
+    useEffect(() => {
+        const fetchPoems = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/poems/');
+                const data = await response.json();
+                setPoems(data);
+            } catch (error) {
+                console.error('Ошибка при получении воспоминаний:', error);
+            }
+        };
+
+        fetchPoems();
+    }, []);
+
+    return (
+        <div>
+            <div className="memories-container">
+                {poems.map((poem) => (
+                    <div className="memory-block" key={poem.id}>
+                        <h3>{poem.title}</h3>
+                        <p>{poem.content}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
 export default App;

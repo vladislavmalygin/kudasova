@@ -23,3 +23,15 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Poem(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+
+    class Meta:
+        verbose_name = 'Стихотворение'
+        verbose_name_plural = 'Стихи'
+
+    def __str__(self):
+        return self.title

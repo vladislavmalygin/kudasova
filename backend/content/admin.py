@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Image, Video
+from .models import Image, Video, Poem
 
 
 @admin.register(Image)
@@ -19,4 +19,10 @@ class ImageAdmin(admin.ModelAdmin):
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('title', 'file', 'created_at')
+    search_fields = ('title',)
+
+
+@admin.register(Poem)
+class PoemAdmin(admin.ModelAdmin):
+    list_display = ('title', 'content')
     search_fields = ('title',)
