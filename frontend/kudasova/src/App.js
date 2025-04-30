@@ -49,8 +49,6 @@ const MainContainer = ({ blockOrder, images }) => (
     <div className="main-container">
         {blockOrder.map(block => {
             if (block === 'main') return <MainText key="main" />;
-            if (block === 'family') return <FamilyText key="family" images={images.filter(image => image.category === 'family')} />;
-            if (block === 'science') return <ScienceText key="science" />;
             return null;
         })}
     </div>
@@ -60,32 +58,17 @@ const MainText = () => (
     <div className="main-text-block">
         <h1>Кудасова Валентина Васильевна</h1>
         <img src="/images/main_photo.jpg" alt="Main Photo" className="img-main" />
-        <h3>1947 - 2012</h3>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
+        <h3>1.05.1947 - 21.02.2012 </h3>
+        <h4>-</h4>
+        <p>Заведующая кафедрой русского языка и литературы, Владимирского Государственного Гуманитарного Университета, доцент, кандидат филологических наук.
+</p>
+        <h4>-</h4>
+        <p>Это страница памяти Валентины Васильевны. Здесь собраны воспоминания родных, друзей и коллег, а также фотографии, и видеозаписи.</p>
+        <h4>-</h4>
+        <p>Любой гость может оставить свои пожелания, комментарии или воспоминания в гостевой книге, а также прислать фотографии с Валентиной Васильевной, нажав на кнопку прислать фото.
+</p>
     </div>
 );
-
-const ScienceText = () => (
-    <div className="science-text-block">
-        <h2>Список научных трудов и книг</h2>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-    </div>
-);
-
-const FamilyText = ({ images }) => (
-    <div className="family-text-block">
-        <h2>Семья</h2>
-        <img src="/images/family_photo.jpg" alt="Family Photo" className="img-family" />
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-    </div>
-);
-
 
 const PhotoPage = () => {
     const [images, setImages] = useState([]);
@@ -295,7 +278,7 @@ const GuestbookForm = () => {
         <div className="form-container">
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Заголовок:</label>
+                    <label>Тема:</label>
                     <input type="text" name="title" value={formData.title} onChange={handleChange} required />
                 </div>
 

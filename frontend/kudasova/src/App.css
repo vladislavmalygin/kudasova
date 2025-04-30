@@ -70,7 +70,7 @@ button:hover {
 
 /* Общие стили для текстовых блоков */
 .main-text-block, .science-text-block, .family-text-block {
-    background-color: white;
+    background-color: rgba(242, 218, 242, 0.8);
     padding: 20px; /* Внутренние отступы */
     border-radius: 8px; /* Закругленные углы */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для блока */
@@ -88,9 +88,11 @@ button:hover {
 /* Стили для заголовков */
 .main-text-block h1,
 .science-text-block h2,
+.main-text-block p,
 .family-text-block h2 {
     color: #333; /* Темный цвет текста */
     font-family: 'Arial', sans-serif; /* Шрифт */
+    line-height: 1.6; /* Высота строки для лучшей читаемости */
     margin-bottom: 10px; /* Отступ снизу */
 }
 
@@ -115,7 +117,7 @@ button:hover {
 .main-text-block p,
 .science-text-block p,
 .family-text-block p {
-    color: #555; /* Более светлый цвет текста */
+    color: #333; /* Более светлый цвет текста */
     line-height: 1.6; /* Высота строки для лучшей читаемости */
     margin: 0; /* Убираем отступы у параграфа */
 }
