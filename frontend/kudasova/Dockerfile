@@ -1,8 +1,20 @@
-# build env
-FROM node:21.7.1-alpine
+# Dockerfile для React
+FROM node:14
+
+# Установка зависимостей
 WORKDIR /app
-COPY package*.json ./
+COPY package.json .
+COPY package-lock.json .
 RUN npm install
-COPY . ./
+
+# Копирование кода
+COPY . .
+
+# Сборка приложения
 RUN npm run build
-CMD cp -r build result_build
+
+# Открытие порта
+EXPOSE 3000
+
+# Команда для запуска приложения
+CMD ["npm", "start"]

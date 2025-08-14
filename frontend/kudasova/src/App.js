@@ -78,7 +78,7 @@ const PhotoPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showUploadForm, setShowUploadForm] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null); // Состояние для выбранного изображения
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -105,11 +105,11 @@ const PhotoPage = () => {
     };
 
     const handleImageClick = (image) => {
-        setSelectedImage(image); // Устанавливаем выбранное изображение
+        setSelectedImage(image);
     };
 
     const closeModal = () => {
-        setSelectedImage(null); // Закрываем модальное окно
+        setSelectedImage(null);
     };
 
     if (loading) {
@@ -123,9 +123,9 @@ const PhotoPage = () => {
     return (
         <div className="photo-page">
             {!showUploadForm && (
-               <button className="button_add" onClick={() => setShowUploadForm(true)}>
-                Добавить фотографию
-               </button>
+                <button className="button_add" onClick={() => setShowUploadForm(true)}>
+                    Добавить фотографию
+                </button>
             )}
             {showUploadForm && (
                 <UploadPhotoForm onUpload={handleUpload} onClose={() => setShowUploadForm(false)} />
@@ -133,16 +133,15 @@ const PhotoPage = () => {
             <div className="photo-gallery">
                 {images.map((image, index) => (
                     <div className="photo-item" key={index} onClick={() => handleImageClick(image)}>
-                        <img src={image.image} alt={image.description} className="photo" />
+                        <img src={image.image_base64} alt={image.description} className="photo" />
                         <p className="photo-description">{image.description}</p>
                     </div>
                 ))}
             </div>
 
-            {/* Модальное окно для отображения изображения в полном размере */}
             {selectedImage && (
                 <div className="modal" onClick={closeModal}>
-                    <img src={selectedImage.image} alt={selectedImage.description} />
+                    <img src={selectedImage.image_base64} alt={selectedImage.description} />
                 </div>
             )}
         </div>
