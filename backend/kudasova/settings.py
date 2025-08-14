@@ -1,4 +1,5 @@
 from pathlib import Path
+from decouple import config
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -7,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'your-secret-key'
 
 # Установите DEBUG в True для разработки
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Установите ALLOWED_HOSTS в пустой список по умолчанию
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 
 
 INSTALLED_APPS = [
@@ -65,9 +66,10 @@ WSGI_APPLICATION = 'kudasova.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db' / 'db.sqlite3',  # Путь к файлу базы данных
     }
 }
+
 
 
 AUTH_PASSWORD_VALIDATORS = [

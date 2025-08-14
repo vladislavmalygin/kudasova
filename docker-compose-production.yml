@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+      - db_data:/app/db
+    env_file:
+      - .env  # Используем файл .env
+    expose:
+      - "8000"  # Открываем порт для связи с Nginx
+
+  react:
+    build:
+      context: ./frontend/kudasova
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/kudasova:/app
+    env_file:
+      - .env  # Используем файл .env
+    expose:
+      - "3000"  # Открываем порт для связи с Nginx
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"  # Открываем порт 80 для внешнего доступа
+    depends_on:
+      - django
+      - react
+      - db_data
+
+volumes:
+  db_data:  # Определяем том для базы данных

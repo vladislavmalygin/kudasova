@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/app
+      - db_data:/app/db
     ports:
       - "8000:8000"
   
@@ -18,3 +19,6 @@ services:
       - ./frontend/kudasova:/app
     ports:
       - "3000:3000"
+
+volumes:
+  db_data:  # Определяем том для базы данных
