@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+  
+  react:
+    build:
+      context: ./frontend/kudasova
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/kudasova:/app
+    ports:
+      - "3000:3000"

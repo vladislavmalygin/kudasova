@@ -30,10 +30,6 @@ package-lock.json
 yarn.lock
 build/
 
-# Docker
-*.dockerignore
-docker-compose.yml
-
 # IDEs
 .vscode/
 .idea/
