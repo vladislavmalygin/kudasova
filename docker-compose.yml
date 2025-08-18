@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/app
-      - db_data:/app/db
+      - db_data:/app/
     ports:
       - "8000:8000"
   

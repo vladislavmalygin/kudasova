@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/app
-      - db_data:/app/db
+      - db_data:/app/
     env_file:
       - .env  # Используем файл .env
     expose:
