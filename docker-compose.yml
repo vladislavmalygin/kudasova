@@ -6,17 +6,17 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     volumes:
-      - ./backend:/app
-      - db_data:/app/
+      - ./backend:/app  # Монтируем папку backend
+      - db_data:/app/db_data  # Монтируем том для базы данных
     ports:
       - "8000:8000"
-  
+
   react:
     build:
       context: ./frontend/kudasova
       dockerfile: Dockerfile
     volumes:
-      - ./frontend/kudasova:/app
+      - ./frontend/kudasova:/app  # Монтируем папку frontend
     ports:
       - "3000:3000"
 
