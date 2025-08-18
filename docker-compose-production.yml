@@ -33,7 +33,6 @@ services:
     depends_on:
       - django
       - react
-      - db_data
 
 volumes:
   db_data:  # Определяем том для базы данных

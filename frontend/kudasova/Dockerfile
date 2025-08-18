@@ -3,8 +3,8 @@ FROM node:14
 
 # Установка зависимостей
 WORKDIR /app
-COPY package.json package.json
-COPY package-lock.json package-lock.json
+COPY package.json .
+COPY package-lock.json .
 RUN npm install
 
 # Копирование кода
@@ -14,6 +14,7 @@ COPY . .
 RUN npm run build
 
 # Открытие порта
+EXPOSE 3000
 
 # Команда для запуска приложения
-CMD ["npx", "-y", "http-server", "-p", "8000", "/app/build"]
+CMD ["npm", "start"]
