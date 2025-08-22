@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="footer-content">
-                <p>Контактная информация: <a href="mailto:malyginvlad6220@gmail.com">mail_placeholder</a></p>
+                <p>Контактная информация: <a href="mailto:malyginvlad6220@gmail.com">malyginvlad6220@gmail.com</a></p>
             </div>
         </footer>
     );
