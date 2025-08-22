@@ -247,12 +247,12 @@ button:hover {
 
 .button_add {
     position: relative;
-    top: -5vh;
-    right: -40.8vw;
+    top: -5vh; /* Высота кнопки */
+    left: 50%; /* Сдвиг на 50% от родительского элемента */
+    transform: translateX(-50%); /* Центрирование кнопки по горизонтали */
     background-color: var(--button-background); /* Используем переменную */
     border: none;
     color: var(--button-text-color); /* Используем переменную */
-    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -261,6 +261,7 @@ button:hover {
     border-radius: 5px; /* Закругление углов кнопок */
     transition: background-color 0.3s, color 0.3s; /* Плавный переход */
 }
+
 
 .button_add:hover {
     background-color: var(--button-hover-background); /* Используем переменную */
