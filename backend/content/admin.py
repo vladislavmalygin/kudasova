@@ -5,8 +5,8 @@ from .models import Image, Video, Poem
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('description', 'thumbnail')  #
-    search_fields = ('description',)
+    list_display = ('description', 'thumbnail' ,'approved')  #
+    search_fields = ('description', 'approved')
 
     def thumbnail(self, obj):
         if obj.image:
