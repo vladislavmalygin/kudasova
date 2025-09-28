@@ -27,12 +27,11 @@ def guestbook_entry(request):
         serializer = GuestbookEntrySerializer(data=data)
         if serializer.is_valid():
             guestbook_entry_instance = serializer.save()
-            # Создаем запись в модели Memory
             Memory.objects.create(
                 title=guestbook_entry_instance.title,
                 memory=guestbook_entry_instance.memory,
                 photo=guestbook_entry_instance.photo,
-                approved=False  # По умолчанию false
+                approved=False
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
