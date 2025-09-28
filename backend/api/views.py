@@ -12,7 +12,7 @@ from .serializers import (ImageSerializer, MemorySerializer,
                           GuestbookEntrySerializer, PoemSerializer)
 
 class ImageList(generics.ListCreateAPIView):
-    queryset = Image.objects.all()
+    queryset = Image.objects.filter(approved=True)
     serializer_class = ImageSerializer
 
 
