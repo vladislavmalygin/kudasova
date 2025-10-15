@@ -2,9 +2,7 @@ version: '3'
 
 services:
   django:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image:  vladislavmalygin/kudasova_backend
     volumes:
       - ./backend:/app
       - db_data:/app/
@@ -14,9 +12,7 @@ services:
       - "8000"  # Открываем порт для связи с Nginx
 
   react:
-    build:
-      context: ./frontend/kudasova
-      dockerfile: Dockerfile
+    image: vladislavmalygin/kudasova_frontend
     volumes:
       - ./frontend/kudasova:/app
     env_file:
