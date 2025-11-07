@@ -1,16 +1,23 @@
 from pathlib import Path
 import os
 
+from django.core.management.utils import get_random_secret_key
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Используйте строку по умолчанию для SECRET_KEY
-SECRET_KEY = 'your-secret-key'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', get_random_secret_key())
 
-# Установите DEBUG в True для разработки
-DEBUG = True
-
+DEBUG = os.getenv('DEBUG', '').lower() in ('true', 'on', '1')
 # Установите ALLOWED_HOSTS в пустой список по умолчанию
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = (
+    os.getenv('ALLOWED_HOSTS', 'localhost, 127.0.0.1')
+    .replace(' ', '')
+    .split(',')
+)
+if 'CSRF_TRUSTED_ORIGINS' in os.environ:
+    CSRF_TRUSTED_ORIGINS = (
+        os.getenv('CSRF_TRUSTED_ORIGINS').replace(' ', '').split(',')
+    )
 
 
 INSTALLED_APPS = [
@@ -62,12 +69,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kudasova.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+USE_SQLITE = os.getenv('USE_SQLITE', 'False').lower() in ['True']
+
+if USE_SQLITE:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_DB', 'django'),
+            'USER': os.getenv('POSTGRES_USER', 'django'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'django'),
+            'HOST': os.getenv('DB_HOST', 'db'),
+            'PORT': os.getenv('DB_PORT', 5432),
+        }
+    }
 
 
 AUTH_PASSWORD_VALIDATORS = [
