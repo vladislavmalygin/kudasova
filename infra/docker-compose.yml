@@ -1,0 +1,49 @@
+volumes:
+  static_files:
+  media_files:
+  pg_data:
+
+services:
+  db:
+    container_name: kudasova-db
+    image: postgres:13.10-alpine
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: "PGPASSWORD=django pg_isready -h 127.0.0.1 -U django -d django"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  backend:
+    container_name: kudasova-backend
+    env_file: .env
+    build: ../backend
+    volumes:
+      - static_files:/backend_static
+      - media_files:/app/media/
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    container_name: kudasova-frontend
+    build: ../frontend/kudasova
+    command: cp -r /app/build/. /frontend_static/
+    volumes:
+      - static_files:/frontend_static
+
+  nginx:
+    container_name: foodgram-proxy
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - static_files:/staticfiles/
+      - media_files:/media/
+    depends_on:
+      - frontend
+      - backend
