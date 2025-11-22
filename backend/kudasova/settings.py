@@ -8,12 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', get_random_secret_key())
 
 DEBUG = os.getenv('DEBUG', '').lower() in ('true', 'on', '1')
-# Установите ALLOWED_HOSTS в пустой список по умолчанию
-ALLOWED_HOSTS = (
-    os.getenv('ALLOWED_HOSTS', 'localhost, 127.0.0.1')
-    .replace(' ', '')
-    .split(',')
-)
+
+ALLOWED_HOSTS = ['*']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -117,18 +114,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://kudasova.com",
-    "http://195.133.48.36:8080"
-]
+CORS_ORIGIN_ALLOW_ALL = True
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://kudasova.com",
-    "http://195.133.48.36:8080"
-]
+
+CSRF_TRUSTED_ORIGINS = ['*']
 
 
