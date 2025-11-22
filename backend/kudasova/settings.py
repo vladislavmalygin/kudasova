@@ -14,11 +14,6 @@ ALLOWED_HOSTS = (
     .replace(' ', '')
     .split(',')
 )
-if 'CSRF_TRUSTED_ORIGINS' in os.environ:
-    CSRF_TRUSTED_ORIGINS = (
-        os.getenv('CSRF_TRUSTED_ORIGINS').replace(' ', '').split(',')
-    )
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
