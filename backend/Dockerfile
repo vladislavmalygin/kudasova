@@ -10,7 +10,7 @@ RUN pip install -r requirements.txt --no-cache-dir
 COPY . .
 
 # Открытие порта
-EXPOSE 8000
+EXPOSE 8080
 
 # Используйте Gunicorn для запуска приложения
 CMD ["gunicorn", "kudasova.wsgi:application", "--bind", "0.0.0.0:8080"]
