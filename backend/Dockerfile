@@ -1,16 +1,7 @@
-FROM python:3.11
-
+FROM python:3.9-slim
 WORKDIR /app
-
-# Установите зависимости
-COPY requirements.txt .
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt --no-cache-dir
-
-# Копирование всех файлов
 COPY . .
-
-# Открытие порта
-EXPOSE 8080
-
-# Используйте Gunicorn для запуска приложения
-CMD ["gunicorn", "kudasova.wsgi:application", "--bind", "0.0.0.0:8080"]
+COPY entrypoint.sh entrypoint.sh
+CMD ["sh", "entrypoint.sh"]
