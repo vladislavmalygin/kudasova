@@ -40,7 +40,7 @@ services:
     container_name: kudasova-proxy
     image: vladislavmalygin/kudasova_nginx:latest
     ports:
-      - "8080:80"
+      - "8080:8080"
     volumes:
       - static_files:/staticfiles/
       - media_files:/media/
