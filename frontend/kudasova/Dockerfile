@@ -1,20 +1,16 @@
-# Dockerfile для React
-FROM node:14
+FROM node:16-alpine AS build
 
-# Установка зависимостей
 WORKDIR /app
-COPY package.json .
-COPY package-lock.json .
+
+# Copy package files and install dependencies
+COPY package*.json ./
 RUN npm install
 
-# Копирование кода
+# Copy source files and build
 COPY . .
-
-# Сборка приложения
 RUN npm run build
 
-# Открытие порта
-EXPOSE 3000
-
-# Команда для запуска приложения
-CMD ["npm", "start"]
+# Nginx stage
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
