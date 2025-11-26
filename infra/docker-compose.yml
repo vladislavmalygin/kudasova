@@ -1,3 +1,5 @@
+version: '3.8'
+
 volumes:
   static_files:
   media_files:
@@ -20,8 +22,10 @@ services:
 
   backend:
     container_name: kudasova-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     env_file: .env
-    build: ../backend
     volumes:
       - static_files:/backend_static
       - media_files:/app/media/
@@ -31,17 +35,21 @@ services:
 
   frontend:
     container_name: kudasova-frontend
-    build: ../frontend/kudasova
-    command: cp -r /app/build/. /frontend_static/
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     volumes:
       - static_files:/frontend_static
 
   nginx:
-    container_name: foodgram-proxy
-    build: .
+    container_name: kudasova-proxy
+    image: nginx:latest
     ports:
-      - "8080:80"
+      - "80:80"
+      - "443:443"
     volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - static_files:/staticfiles/
       - media_files:/media/
     depends_on:
