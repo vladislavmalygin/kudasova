@@ -74,11 +74,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('POSTGRES_DB', 'kudasova_db'),
-            'USER': os.environ.get('POSTGRES_USER', 'kudasova_user'),
-            'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'kudasova_password'),
-            'HOST': os.environ.get('DB_HOST', 'postgres'),
-            'PORT': os.environ.get('DB_PORT', '5432'),
+            'NAME': os.getenv('POSTGRES_DB', 'django'),
+            'USER': os.getenv('POSTGRES_USER', 'django'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'django'),
+            'HOST': os.getenv('POSTGRES_HOST', 'db'),
+            'PORT': os.getenv('POSTGRES_PORT', '5432'),
         }
     }
 
