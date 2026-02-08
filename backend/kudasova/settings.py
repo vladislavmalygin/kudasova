@@ -20,8 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #second_apps
-    'rest_framework',
     'corsheaders',
+    'rest_framework',
     #project_apps
     'memories',
     'content',
@@ -116,3 +116,30 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = ['*']
+
+# Добавьте это в settings.py
+CORS_ALLOW_ALL_ORIGINS = True  # Явное разрешение всех источников
+CORS_ALLOW_CREDENTIALS = True  # Разрешить куки и аутентификацию
+
+# Разрешить все методы
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+# Разрешить все заголовки
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]

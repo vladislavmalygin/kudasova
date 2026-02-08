@@ -23,7 +23,7 @@ const UploadPhotoForm = ({ onUpload, onClose }) => {
         formData.append('description', description);
 
         try {
-            const response = await fetch('http://localhost:8000/api/images/', {
+            const response = await fetch('/api/images/', {
                 method: 'POST',
                 body: formData,
             });

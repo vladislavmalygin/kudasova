@@ -24,13 +24,10 @@ function App() {
 
                         {/* Остальные кнопки навигации */}
                         <Link to="/photo"><button>Фото</button></Link>
-
                         <Link to="/memories"><button>Воспоминания</button></Link>
                         <Link to="/poems"><button>Стихи</button></Link>
                         <Link to="/guestbook"><button>Гостевая книга</button></Link>
-
                     </nav>
-
                 </header>
                 <main className="main-background">
                     <Routes>
@@ -63,13 +60,11 @@ const MainText = () => (
         <img src="/images/main_photo.jpg" alt="Main Photo" className="img-main" />
         <h3>1.05.1947 - 21.02.2012 </h3>
         <h4>-</h4>
-        <p>Заведующая кафедрой русского языка и литературы, Владимирского Государственного Гуманитарного Университета, доцент, кандидат филологических наук.
-</p>
+        <p>Заведующая кафедрой русского языка и литературы, Владимирского Государственного Гуманитарного Университета, доцент, кандидат филологических наук.</p>
         <h4>-</h4>
         <p>Это страница памяти Валентины Васильевны. Здесь собраны воспоминания родных, друзей и коллег, а также фотографии, и видеозаписи.</p>
         <h4>-</h4>
-        <p>Любой гость может оставить свои пожелания, комментарии или воспоминания в гостевой книге, а также прислать фотографии с Валентиной Васильевной, нажав на кнопку прислать фото.
-</p>
+        <p>Любой гость может оставить свои пожелания, комментарии или воспоминания в гостевой книге, а также прислать фотографии с Валентиной Васильевной, нажав на кнопку прислать фото.</p>
     </div>
 );
 
@@ -148,7 +143,6 @@ const PhotoPage = () => {
     );
 };
 
-
 const VideoPage = () => {
     const [videos, setVideos] = useState([]);
 
@@ -164,7 +158,6 @@ const VideoPage = () => {
 
     return (
         <div className="video-page">
-
             {videos.length > 0 ? (
                 <div className="video-gallery">
                     {videos.map((videoUrl, index) => (
@@ -182,7 +175,6 @@ const VideoPage = () => {
         </div>
     );
 };
-
 
 const MemoriesPage = () => {
     const [memories, setMemories] = useState([]);
@@ -216,14 +208,13 @@ const MemoriesPage = () => {
     );
 };
 
-
 const GuestbookForm = () => {
     const [formData, setFormData] = useState({
         title: '',
         memory: '',
         photo: ''
     });
-    const [successMessage, setSuccessMessage] = useState(''); // Состояние для сообщения об успешной отправке
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -245,6 +236,24 @@ const GuestbookForm = () => {
         }
     };
 
+    // Получаем CSRF токен при загрузке компонента
+    useEffect(() => {
+        const getCsrfToken = async () => {
+            try {
+                const response = await fetch('/api/csrf_token/', {
+                    credentials: 'include',
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    // Django автоматически установит токен в куки
+                }
+            } catch (error) {
+                console.error('Error fetching CSRF token:', error);
+            }
+        };
+        getCsrfToken();
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -255,6 +264,7 @@ const GuestbookForm = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
+                credentials: 'include',
             });
 
             if (!response.ok) {
@@ -281,21 +291,35 @@ const GuestbookForm = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Тема:</label>
-                    <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+                    <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
 
                 <div>
                     <label>Текст:</label>
-                    <textarea name="memory" value={formData.memory} onChange={handleChange} required />
+                    <textarea
+                        name="memory"
+                        value={formData.memory}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
                 <div>
                     <label>Фото (опционально):</label>
-                    <input type="file" accept="image/*" onChange={handleFileChange} />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                    />
                 </div>
                 <button type="submit">Отправить</button>
             </form>
 
-            {/* Сообщение об успехе или ошибке */}
             {successMessage && (
                 <p className={successMessage.type === 'success' ? 'success-message' : 'error-message'}>
                     {successMessage.text}
@@ -315,7 +339,7 @@ const PoemsPage = () => {
                 const data = await response.json();
                 setPoems(data);
             } catch (error) {
-                console.error('Ошибка при получении воспоминаний:', error);
+                console.error('Ошибка при получении стихов:', error);
             }
         };
 

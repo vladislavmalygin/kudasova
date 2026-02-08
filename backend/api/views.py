@@ -1,10 +1,12 @@
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework import generics
-from rest_framework.response import Response
 import os
 from django.http import JsonResponse
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.middleware.csrf import get_token
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from content.models import Image, Video, Poem
 from memories.models import GuestbookEntry, Memory
@@ -17,6 +19,7 @@ class ImageList(generics.ListCreateAPIView):
 
 
 @api_view(['POST'])
+@csrf_exempt
 def guestbook_entry(request):
     if request.method == 'POST':
         data = request.data.copy()
@@ -54,3 +57,12 @@ def list_videos(request):
 class PoemList(generics.ListCreateAPIView):
     queryset = Poem.objects.all()
     serializer_class = PoemSerializer
+
+
+
+
+@api_view(['GET'])
+def get_csrf_token(request):
+    token = get_token(request)
+    return Response({'csrfToken': token})
+
