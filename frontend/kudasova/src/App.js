@@ -215,6 +215,27 @@ const GuestbookForm = () => {
         photo: ''
     });
     const [successMessage, setSuccessMessage] = useState('');
+    const [csrfToken, setCsrfToken] = useState('');
+
+    // Получаем CSRF токен при загрузке компонента
+    useEffect(() => {
+        const getCsrfToken = async () => {
+            try {
+                const response = await fetch('/api/csrf_token/', {
+                    credentials: 'include',  // Важно для получения cookie
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    // ИЗВЛЕКАЕМ значение csrfToken из JSON!
+                    setCsrfToken(data.csrfToken);
+                    console.log('CSRF токен получен:', data.csrfToken);
+                }
+            } catch (error) {
+                console.error('Error fetching CSRF token:', error);
+            }
+        };
+        getCsrfToken();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -236,53 +257,56 @@ const GuestbookForm = () => {
         }
     };
 
-    // Получаем CSRF токен при загрузке компонента
-    useEffect(() => {
-        const getCsrfToken = async () => {
-            try {
-                const response = await fetch('/api/csrf_token/', {
-                    credentials: 'include',
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    // Django автоматически установит токен в куки
-                }
-            } catch (error) {
-                console.error('Error fetching CSRF token:', error);
-            }
-        };
-        getCsrfToken();
-    }, []);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        console.log('Отправка формы, CSRF токен:', csrfToken);
+        console.log('Данные формы:', formData);
 
         try {
             const response = await fetch('/api/guestbook/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,  // Используем извлеченный токен
                 },
                 body: JSON.stringify(formData),
-                credentials: 'include',
+                credentials: 'include',  // Включаем куки
             });
 
+            console.log('Статус ответа:', response.status);
+
             if (!response.ok) {
-                throw new Error('Ошибка при отправке данных');
+                let errorText = 'Ошибка при отправке данных';
+                try {
+                    const errorData = await response.json();
+                    errorText = errorData.detail || JSON.stringify(errorData);
+                } catch (e) {
+                    errorText = await response.text();
+                }
+                throw new Error(errorText);
             }
 
             const data = await response.json();
             console.log('Данные успешно отправлены:', data);
-            setSuccessMessage({ text: 'Данные успешно отправлены!', type: 'success' });
+            setSuccessMessage({
+                text: 'Данные успешно отправлены!',
+                type: 'success'
+            });
 
+            // Сброс формы
             setFormData({
                 title: '',
                 memory: '',
                 photo: ''
             });
+
         } catch (error) {
-            console.error('Ошибка:', error);
-            setSuccessMessage({ text: 'Ошибка при отправке данных. Пожалуйста, попробуйте еще раз.', type: 'error' });
+            console.error('Полная ошибка:', error);
+            setSuccessMessage({
+                text: `Ошибка: ${error.message}`,
+                type: 'error'
+            });
         }
     };
 
