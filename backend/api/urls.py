@@ -12,6 +12,5 @@ urlpatterns = [
     path('videos/', list_videos, name='list_videos'),
     path('poems/', PoemList.as_view(), name='poem-list'),
     path('csrf_token/', get_csrf_token, name='get_csrf_token'),
-    path('test/', test_api, name='test_api'),
 ]
 

@@ -66,10 +66,4 @@ def get_csrf_token(request):
     token = get_token(request)
     return Response({'csrfToken': token})
 
-@api_view(['GET'])
-@csrf_exempt
-def test_api(request):
-    """
-    Простой тестовый endpoint.
-    """
-    return Response({'status': 'API работает!', 'endpoint': 'test'})
+
