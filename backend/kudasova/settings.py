@@ -117,9 +117,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = ['*']
 
-# Добавьте это в settings.py
-CORS_ALLOW_ALL_ORIGINS = True  # Явное разрешение всех источников
-CORS_ALLOW_CREDENTIALS = True  # Разрешить куки и аутентификацию
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Разрешить все методы
 CORS_ALLOW_METHODS = [
