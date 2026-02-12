@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ImageList, guestbook_entry, memories, list_videos, PoemList, get_csrf_token, test_api
+from .views import ImageList, guestbook_entry, memories, list_videos, PoemList, get_csrf_token
 
 router = DefaultRouter()
 
