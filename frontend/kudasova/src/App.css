@@ -90,10 +90,8 @@ button:active {
 /* ── Main background ─────────────────────────────────────── */
 
 .main-background {
-    position: relative;
     min-height: calc(100vh - 56px);
     padding: 30px 20px;
-    overflow-y: auto;
     box-sizing: border-box;
 }
 
@@ -259,17 +257,22 @@ button:active {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    padding-top: 56px;
+    z-index: 9999;
     animation: fadeIn 0.2s ease both;
     cursor: zoom-out;
+    box-sizing: border-box;
 }
 
 .modal img {
-    max-width: 90%;
-    max-height: 90vh;
+    max-width: 88%;
+    max-height: calc(90vh - 56px);
+    width: auto;
+    height: auto;
     border-radius: 8px;
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
     animation: modalIn 0.25s ease both;
+    object-fit: contain;
 }
 
 /* ── Video page ──────────────────────────────────────────── */
