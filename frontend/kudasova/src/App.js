@@ -128,7 +128,7 @@ const PhotoPage = () => {
             <div className="photo-gallery">
                 {images.map((image, index) => (
                     <div className="photo-item" key={index} onClick={() => handleImageClick(image)}>
-                        <img src={image.image_base64} alt={image.description} className="photo" />
+                        <img src={image.image_url} alt={image.description} className="photo" loading="lazy" />
                         <p className="photo-description">{image.description}</p>
                     </div>
                 ))}
@@ -136,7 +136,7 @@ const PhotoPage = () => {
 
             {selectedImage && (
                 <div className="modal" onClick={closeModal}>
-                    <img src={selectedImage.image_base64} alt={selectedImage.description} />
+                    <img src={selectedImage.image_url} alt={selectedImage.description} />
                 </div>
             )}
         </div>
