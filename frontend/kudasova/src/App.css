@@ -1,16 +1,32 @@
 :root {
-    --primary-color: #d305f7; /* Основной цвет */
-    --button-background: white; /* Цвет фона кнопки */
-    --button-hover-background: #df38fc; /* Цвет фона кнопки при наведении */
-    --button-text-color: black; /* Цвет текста кнопки */
-    --text-block-background: white; /* Цвет фона текстового блока */
-    --text-block-shadow: rgba(0, 0, 0, 0.1); /* Тень для текстового блока */
-    --form-background: white; /* Цвет фона формы */
-    --form-border-color: #ccc; /* Цвет рамки полей ввода */
-    --form-border-focus-color: var(--primary-color); /* Цвет рамки при фокусе */
+    --primary-color: #d305f7;
+    --primary-dark: #a804c4;
+    --button-hover-background: #df38fc;
+    --button-text-color: black;
+    --text-block-background: rgba(242, 218, 242, 0.92);
+    --form-background: white;
+    --form-border-color: #ddd;
+    --form-border-focus-color: var(--primary-color);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.09);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.14);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --radius: 10px;
+    --ease: 0.25s ease;
 }
 
-background-image: url('./images/background.jpg');
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-family: 'Open Sans', sans-serif;
@@ -19,251 +35,345 @@ body {
     background-color: #f0f0f0;
 }
 
+/* ── Header ─────────────────────────────────────────────── */
+
 header {
-    background-color: var(--primary-color); /* Используем переменную */
-    padding: 20px;
+    background-color: var(--primary-color);
+    padding: 14px 20px;
     display: flex;
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
-    height: 60px;
+    justify-content: center;
+    align-items: center;
+    min-height: 56px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 nav {
     display: flex;
-    gap: 10px; /* Промежуток между кнопками */
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
+/* ── Buttons ─────────────────────────────────────────────── */
+
 button {
-    background-color: var(--button-background); /* Используем переменную */
+    background-color: white;
     border: none;
-    color: var(--button-text-color); /* Используем переменную */
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    color: var(--button-text-color);
+    padding: 9px 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    border-radius: 5px; /* Закругление углов кнопок */
-    transition: background-color 0.3s, color 0.3s; /* Плавный переход */
+    border-radius: 6px;
+    letter-spacing: 0.2px;
+    transition: background-color var(--ease), color var(--ease),
+                box-shadow var(--ease), transform var(--ease);
+    box-shadow: var(--shadow-sm);
 }
 
 button:hover {
-    background-color: var(--button-hover-background); /* Используем переменную */
-    color: white; /* Цвет текста при наведении */
+    background-color: var(--button-hover-background);
+    color: white;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
-/* Контейнер для главной страницы */
-.main-container {
-    display: grid;
-    grid-template-columns: 1fr; /* Один столбец */
-    gap: 20px; /* Отступы между блоками */
-    max-height: 80vh; /* Максимальная высота контейнера */
-    max-width: 100%; /* Максимальная ширина контейнера */
-    overflow-y: auto; /* Включаем вертикальную прокрутку */
-    overflow-x: auto; /* Включаем горизонтальную прокрутку */
-    padding: 10px; /* Внутренние отступы для контейнера */
-    margin-left: auto; /* Центрирование контейнера */
-    margin-right: auto; /* Центрирование контейнера */
-    max-width: 100%; /* Ограничиваем ширину изображения */
-    max-height: 100%; /* Ограничиваем ширину изображения */
+button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
 }
 
-/* Общие стили для текстовых блоков */
-.main-text-block, .science-text-block, .family-text-block {
-    background-color: rgba(242, 218, 242, 0.8);
-    padding: 20px; /* Внутренние отступы */
-    border-radius: 8px; /* Закругленные углы */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для блока */
-    display: flex; /* Используем flexbox для центрирования содержимого */
-    flex-direction: column; /* Вертикальное направление */
-    align-items: center; /* Центрирование по горизонтали */
-    text-align: center; /* Центрирование текста */
-    margin-left: auto; /* Центрирование контейнера */
-    margin-right: auto; /* Центрирование контейнера */
-    max-width: 40%; /* Ограничиваем ширину изображения */
-    max-height: 100%; /* Ограничиваем ширину изображения */
-
-}
-
-/* Стили для заголовков */
-.main-text-block h1,
-.science-text-block h2,
-.main-text-block p,
-.family-text-block h2 {
-    color: #333; /* Темный цвет текста */
-    font-family: 'Arial', sans-serif; /* Шрифт */
-    line-height: 1.6; /* Высота строки для лучшей читаемости */
-    margin-bottom: 10px; /* Отступ снизу */
-}
-
-/* Стили для главного изображения */
-.img-main {
-    max-width: 30%; /* Ограничиваем ширину главного изображения */
-    height: auto; /* Автоматическая высота */
-    border-radius: 4px; /* Закругленные углы для главного изображения */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Тень для главного изображения */
-}
-
-/* Стили для изображений семьи */
-.img-family {
-    max-width: 50%; /* Ограничиваем ширину изображений семьи */
-    height: auto; /* Автоматическая высота */
-    border-radius: 4px; /* Закругленные углы для изображений семьи */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень для изображений семьи */
-}
-
-
-/* Стили для параграфов */
-.main-text-block p,
-.science-text-block p,
-.family-text-block p {
-    color: #333; /* Более светлый цвет текста */
-    line-height: 1.6; /* Высота строки для лучшей читаемости */
-    margin: 0; /* Убираем отступы у параграфа */
-}
-
-
+/* ── Main background ─────────────────────────────────────── */
 
 .main-background {
-    position: relative; /* Для позиционирования псевдоэлемента */
-    height: 100vh;
-    padding: 20px;
-    overflow: hidden; /* Чтобы скрыть псевдоэлемент, если он выходит за пределы */
+    position: relative;
+    min-height: calc(100vh - 56px);
+    padding: 30px 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .main-background::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background-image: url('./images/background2.jpg');
-    background-size: auto;
-    background-repeat:;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.9;
+    opacity: 0.88;
     z-index: -1;
 }
 
+/* ── Utility ─────────────────────────────────────────────── */
+
+.page-centered {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    animation: fadeIn 0.45s ease both;
+}
+
+/* ── Main container & text blocks ────────────────────────── */
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    width: 100%;
+    max-width: 580px;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.main-text-block,
+.science-text-block,
+.family-text-block {
+    background-color: var(--text-block-background);
+    padding: 32px 28px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    animation: fadeIn 0.5s ease both;
+    backdrop-filter: blur(6px);
+}
+
+.main-text-block h1,
+.science-text-block h2,
+.family-text-block h2 {
+    font-family: 'Lora', serif;
+    color: #2a2a2a;
+    line-height: 1.5;
+    margin: 0 0 12px;
+    font-size: 1.5rem;
+}
+
+.main-text-block h3 {
+    font-family: 'Lora', serif;
+    color: #555;
+    margin: 4px 0 16px;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.main-text-block h4 {
+    color: var(--primary-dark);
+    margin: 8px 0;
+    font-size: 1.1rem;
+}
+
+.main-text-block p,
+.science-text-block p,
+.family-text-block p {
+    color: #444;
+    font-size: 0.96rem;
+    line-height: 1.75;
+    margin: 6px 0;
+}
+
+/* ── Images ──────────────────────────────────────────────── */
+
+.img-main {
+    width: 52%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+    margin: 14px 0;
+}
+
+.img-family {
+    max-width: 50%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ── Photo page ──────────────────────────────────────────── */
+
 .photo-page {
-    padding: 40px; /* Отступы вокруг страницы */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeIn 0.4s ease both;
 }
 
 .photo-gallery {
-    display: flex; /* Используем Flexbox для размещения фотографий */
-    flex-wrap: wrap; /* Позволяем переносить элементы на новую строку */
-    justify-content: center; /* Центрируем фотографии по горизонтали */
-    justify-content: center; /* Центрируем фотографии по горизонтали */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
 }
 
 .photo-item {
-    background-color: white; /* Белый фон для каждого элемента */
-    border: 1px solid #ddd; /* Легкая рамка вокруг элемента */
-    border-radius: 8px; /* Закругление углов */
-    margin: 10px; /* Отступы между элементами */
-    padding: 10px; /* Внутренние отступы */
-    text-align: center; /* Центрируем текст */
-    width: 200px; /* Ширина элемента */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень для эффекта поднятия */
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: var(--radius);
+    padding: 10px;
+    text-align: center;
+    width: 200px;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: transform var(--ease), box-shadow var(--ease);
+}
+
+.photo-item:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
 }
 
 .photo {
-    width: 100%; /* Ширина изображения 100% от родительского элемента */
-    height: 150px; /* Фиксированная высота для всех изображений */
-    object-fit: cover; /* Обеспечивает сохранение пропорций изображения */
-    border-radius: 4px; /* Закругление углов изображения */
-    cursor: pointer; /* Указатель при наведении на изображение */
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
 }
 
 .photo-description {
-    margin-top: 10px; /* Отступ сверху для описания */
-    font-size: 14px; /* Размер шрифта для описания */
-    color: #555; /* Цвет текста для описания */
+    margin-top: 8px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
 }
 
+/* ── Modal ───────────────────────────────────────────────── */
+
 .modal {
-    position: fixed; /* Фиксированное позиционирование */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный черный фон */
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.88);
     display: flex;
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
-    z-index: 1000; /* Убедитесь, что модальное окно выше других элементов */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease both;
+    cursor: zoom-out;
 }
 
 .modal img {
-    max-width: 90%; /* Максимальная ширина изображения в модальном окне */
-    max-height: 90%; /* Максимальная высота изображения в модальном окне */
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+    animation: modalIn 0.25s ease both;
 }
 
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-}
+/* ── Video page ──────────────────────────────────────────── */
 
 .video-page {
-    padding: 40px; /* Отступы вокруг страницы */
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeIn 0.4s ease both;
 }
 
 .video-gallery {
-    display: flex; /* Используем Flexbox для размещения видео */
-    flex-wrap: wrap; /* Позволяем переносить элементы на новую строку */
-    justify-content: center; /* Центрируем видео по горизонтали */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 16px;
 }
 
 .video-item {
-    background-color: white; /* Белый фон для каждого элемента */
-    border: 1px solid #ddd; /* Легкая рамка вокруг элемента */
-    border-radius: 8px; /* Закругление углов */
-    margin: 10px; /* Отступы между элементами */
-    padding: 10px; /* Внутренние отступы */
-    text-align: center; /* Центрируем текст */
-    width: 400px; /* Ширина элемента */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень для эффекта поднятия */
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: var(--radius);
+    padding: 12px;
+    text-align: center;
+    width: 400px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--ease);
+}
+
+.video-item:hover {
+    box-shadow: var(--shadow-md);
 }
 
 .video {
-    width: 100%; /* Ширина видео 100% от родительского элемента */
-    height: auto; /* Автоматическая высота для сохранения пропорций */
-    border-radius: 4px; /* Закругление углов видео */
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
 }
 
 .video-description {
-    margin-top: 10px; /* Отступ сверху для описания */
-    font-size: 14px; /* Размер шрифта для описания */
-    color: #555; /* Цвет текста для описания */
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
 }
 
-
+/* ── Add photo button ────────────────────────────────────── */
 
 .button_add {
-    position: relative;
-    top: -5vh; /* Высота кнопки */
-    left: 50%; /* Сдвиг на 50% от родительского элемента */
-    transform: translateX(-50%); /* Центрирование кнопки по горизонтали */
-    background-color: var(--button-background); /* Используем переменную */
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 28px;
+    background-color: white;
     border: none;
-    color: var(--button-text-color); /* Используем переменную */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    border-radius: 5px; /* Закругление углов кнопок */
-    transition: background-color 0.3s, color 0.3s; /* Плавный переход */
+    border-radius: 6px;
+    box-shadow: var(--shadow-sm);
+    transition: background-color var(--ease), color var(--ease),
+                box-shadow var(--ease), transform var(--ease);
 }
 
-
 .button_add:hover {
-    background-color: var(--button-hover-background); /* Используем переменную */
-    color: white; /* Цвет текста при наведении */
+    background-color: var(--button-hover-background);
+    color: white;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* ── Mobile ──────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    nav {
+        gap: 6px;
+    }
+
+    .main-background {
+        padding: 16px 12px;
+    }
+
+    .main-text-block,
+    .science-text-block,
+    .family-text-block {
+        padding: 20px 16px;
+    }
+
+    .img-main {
+        width: 65%;
+        max-width: 65%;
+    }
+
+    .photo-page,
+    .video-page {
+        padding: 12px;
+    }
+
+    .photo-item {
+        width: 140px;
+    }
+
+    .video-item {
+        width: 100%;
+    }
 }

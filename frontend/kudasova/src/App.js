@@ -76,22 +76,21 @@ const PhotoPage = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
+        const controller = new AbortController();
         const fetchImages = async () => {
             try {
-                const response = await fetch('/api/images/');
-                if (!response.ok) {
-                    throw new Error('Ошибка при загрузке изображений');
-                }
+                const response = await fetch('/api/images/', { signal: controller.signal });
+                if (!response.ok) throw new Error('Ошибка при загрузке изображений');
                 const data = await response.json();
                 setImages(data);
             } catch (err) {
-                setError(err.message);
+                if (err.name !== 'AbortError') setError(err.message);
             } finally {
                 setLoading(false);
             }
         };
-
         fetchImages();
+        return () => controller.abort();
     }, []);
 
     const handleUpload = (newImage) => {
@@ -145,16 +144,29 @@ const PhotoPage = () => {
 
 const VideoPage = () => {
     const [videos, setVideos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
+        const controller = new AbortController();
         const fetchVideos = async () => {
-            const response = await fetch('/api/videos/');
-            const data = await response.json();
-            setVideos(data);
+            try {
+                const response = await fetch('/api/videos/', { signal: controller.signal });
+                if (!response.ok) throw new Error('Ошибка при загрузке видео');
+                const data = await response.json();
+                setVideos(data);
+            } catch (err) {
+                if (err.name !== 'AbortError') setError(err.message);
+            } finally {
+                setLoading(false);
+            }
         };
-
         fetchVideos();
+        return () => controller.abort();
     }, []);
+
+    if (loading) return <div>Загрузка...</div>;
+    if (error) return <div>Ошибка: {error}</div>;
 
     return (
         <div className="video-page">
@@ -170,7 +182,7 @@ const VideoPage = () => {
                     ))}
                 </div>
             ) : (
-                <p>Загрузка видео...</p>
+                <p>Видео пока нет.</p>
             )}
         </div>
     );
@@ -178,29 +190,35 @@ const VideoPage = () => {
 
 const MemoriesPage = () => {
     const [memories, setMemories] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const controller = new AbortController();
         const fetchMemories = async () => {
             try {
-                const response = await fetch('/api/memories/');
+                const response = await fetch('/api/memories/', { signal: controller.signal });
                 const data = await response.json();
                 setMemories(data);
-            } catch (error) {
-                console.error('Ошибка при получении воспоминаний:', error);
+            } catch (err) {
+                if (err.name !== 'AbortError') console.error('Ошибка при получении воспоминаний:', err);
+            } finally {
+                setLoading(false);
             }
         };
-
         fetchMemories();
+        return () => controller.abort();
     }, []);
 
+    if (loading) return <div className="page-centered">Загрузка...</div>;
+
     return (
-        <div>
+        <div className="page-centered">
             <div className="memories-container">
                 {memories.map((memory) => (
                     <div className="memory-block" key={memory.id}>
                         <h3>{memory.title}</h3>
                         <p>{memory.memory}</p>
-                        {memory.photo && <img src={memory.photo} alt={memory.title} />}
+                        {memory.photo && <img src={memory.photo} alt={memory.title} loading="lazy" />}
                     </div>
                 ))}
             </div>
@@ -357,21 +375,22 @@ const PoemsPage = () => {
     const [poems, setPoems] = useState([]);
 
     useEffect(() => {
+        const controller = new AbortController();
         const fetchPoems = async () => {
             try {
-                const response = await fetch('/api/poems/');
+                const response = await fetch('/api/poems/', { signal: controller.signal });
                 const data = await response.json();
                 setPoems(data);
-            } catch (error) {
-                console.error('Ошибка при получении стихов:', error);
+            } catch (err) {
+                if (err.name !== 'AbortError') console.error('Ошибка при получении стихов:', err);
             }
         };
-
         fetchPoems();
+        return () => controller.abort();
     }, []);
 
     return (
-        <div>
+        <div className="page-centered">
             <div className="memories-container">
                 {poems.map((poem) => (
                     <div className="memory-block" key={poem.id}>

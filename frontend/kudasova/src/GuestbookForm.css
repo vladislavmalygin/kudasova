@@ -1,85 +1,120 @@
-/* Стили для формы */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 .form-container {
     display: flex;
-    flex-direction: column; /* Измените направление на колонку */
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
-    height: 50vh; /* Высота контейнера равна высоте окна */
-    width: 100vw;
-    padding: 20px; /* Отступы */
-    box-sizing: border-box; /* Учет отступов в ширине и высоте */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    animation: fadeIn 0.4s ease both;
 }
-
-.success-message {
-    color: green; /* Цвет текста для успешного сообщения */
-    background-color: white; /* Белый фон */
-    margin-top: 20px; /* Отступ сверху */
-    padding: 10px; /* Внутренние отступы */
-    border: 1px solid green; /* Рамка того же цвета, что и текст */
-    border-radius: 4px; /* Закругление углов */
-    font-weight: bold; /* Жирный шрифт */
-}
-
-.error-message {
-    color: red; /* Цвет текста для сообщения об ошибке */
-    background-color: white; /* Белый фон */
-    margin-top: 20px; /* Отступ сверху */
-    padding: 10px; /* Внутренние отступы */
-    border: 1px solid red; /* Рамка того же цвета, что и текст */
-    border-radius: 4px; /* Закругление углов */
-    font-weight: bold; /* Жирный шрифт */
-}
-
-
 
 form {
-    min-width: 650px;
-    max-width: 800px; /* Увеличенная максимальная ширина формы */
-    margin: 20px auto; /* Центрирование формы по горизонтали */
-    padding: 20px; /* Внутренние отступы */
-    background: var(--form-background); /* Фон формы */
-    border-radius: 8px; /* Закругление углов */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень для формы */
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 28px 32px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
 }
 
 form div {
-    margin-bottom: 15px; /* Отступ между элементами формы */
+    margin-bottom: 18px;
 }
 
 form label {
-    display: block; /* Блоковое отображение меток */
-    margin-bottom: 5px; /* Отступ снизу от меток */
-    font-weight: bold; /* Жирный шрифт для меток */
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
 }
 
 form input[type="text"],
 form textarea {
-    width: 100%; /* Полная ширина полей ввода */
-    min-width: 650px;
-    max-width: 650px;
-    padding: 10px; /* Внутренние отступы */
-    border: 1px solid var(--form-border-color); /* Цвет рамки */
-    border-radius: 4px; /* Закругление углов */
-    box-sizing: border-box; /* Учет внутренних отступов в ширине */
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
 }
 
 form input[type="text"]:focus,
 form textarea:focus {
-    border-color: var(--form-border-focus-color); /* Цвет рамки при фокусе */
-    outline: none; /* Убираем стандартный контур при фокусе */
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(211, 5, 247, 0.12);
+}
+
+form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+form input[type="file"] {
+    font-size: 14px;
+    color: #555;
 }
 
 form button {
-    width: 100%; /* Полная ширина кнопки */
-    padding: 12px; /* Увеличенные внутренние отступы для кнопки */
-    background-color: var(--primary-color); /* Цвет фона кнопки */
-    color: white; /* Цвет текста кнопки */
-    border: none; /* Убираем рамку */
-    border-radius: 4px; /* Закругление углов кнопки */
-    cursor: pointer; /* Указатель при наведении */
-    font-size: 18px; /* Увеличенный размер шрифта кнопки */
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+    box-shadow: 0 2px 8px rgba(211, 5, 247, 0.3);
 }
 
 form button:hover {
-    background-color: var(--button-hover-background); /* Цвет фона при наведении на кнопку */
+    background-color: #b804d4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(211, 5, 247, 0.4);
+}
+
+form button:active {
+    transform: translateY(0);
+}
+
+.success-message {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background-color: #f0faf0;
+    color: #2e7d32;
+    border: 1.5px solid #a5d6a7;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.error-message {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background-color: #fff5f5;
+    color: #c62828;
+    border: 1.5px solid #ef9a9a;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    form {
+        padding: 20px 16px;
+    }
 }

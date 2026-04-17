@@ -1,79 +1,115 @@
-.upload-photo-form {
-    position: fixed; /* Фиксированное позиционирование */
-    top: 50%; /* Центрирование по вертикали */
-    left: 50%; /* Центрирование по горизонтали */
-    transform: translate(-50%, -50%); /* Сдвиг для точного центрирования */
-    background-color: white; /* Фоновый цвет формы */
-    border: 1px solid #ccc; /* Граница формы */
-    border-radius: 8px; /* Закругленные углы */
-    padding: 20px; /* Внутренние отступы */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для эффекта поднятия */
-    z-index: 1000; /* Убедитесь, что форма выше других элементов */
+@keyframes overlayIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
-.upload-photo-form h2 {
-    margin-bottom: 20px; /* Отступ между заголовком и формой */
+@keyframes formSlideIn {
+    from { opacity: 0; transform: translate(-50%, -48%) scale(0.97); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.upload-photo-form-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: overlayIn 0.2s ease both;
+}
+
+.upload-photo-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 12px;
+    padding: 28px 32px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    width: 90%;
+    max-width: 440px;
+    box-sizing: border-box;
+    animation: formSlideIn 0.25s ease both;
+}
+
+.header-title {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2a2a2a;
+    text-align: center;
+    margin: 0 0 20px;
 }
 
 .upload-photo-form form {
     display: flex;
-    flex-direction: column; /* Вертикальное расположение элементов формы */
-    align-items: center; /* Центрирование по горизонтали */
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
 }
 
 .upload-photo-form input[type="file"],
-.upload-photo-form input[type="text"],
-.upload-photo-form button {
-    margin: 10px 0; /* Отступы между элементами формы */
-    width: 100%; /* Ширина элементов формы */
-    max-width: 400px; /* Максимальная ширина для элементов формы */
+.upload-photo-form input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
 }
 
-.upload-photo-form button {
-    cursor: pointer; /* Указатель при наведении на кнопку */
+.upload-photo-form input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(211, 5, 247, 0.12);
 }
 
-.upload-photo-form-overlay {
-    position: fixed; /* Фиксированное позиционирование */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-    z-index: 999; /* Убедитесь, что затемняющий фон ниже формы */
-    display: flex; /* Используем Flexbox для центрирования формы */
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
+.upload-photo-form button[type="submit"] {
+    padding: 11px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.22s ease, transform 0.22s ease;
+}
+
+.upload-photo-form button[type="submit"]:hover {
+    background-color: #b804d4;
+    transform: translateY(-1px);
 }
 
 .close-button {
+    position: absolute;
+    top: 12px;
+    right: 14px;
     background: none;
-    font-size: 20px;
+    border: none;
+    font-size: 22px;
+    color: #999;
     cursor: pointer;
-    top: 0%; /* Центрирование по вертикали */
-    left: 65%; /* Центрирование по горизонтали */
-    max-width: 0px;
-    max-height: 5%;
+    padding: 2px 6px;
+    border-radius: 4px;
+    box-shadow: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    line-height: 1;
 }
 
 .close-button:hover {
-    background-color: rgba(255, 255, 255, 0.0); /* Изменяем фон при наведении */
-    color: red; /* Цвет текста при наведении */
+    color: #e53935;
+    background-color: #fff0f0;
+    transform: none;
+    box-shadow: none;
 }
-
-.header-title {
-    font-size: 26px; /* Размер шрифта */
-    font-weight: bold; /* Жирный шрифт */
-    color: black; /* Цвет текста */
-    background-color: white; /* Цвет фона */
-    padding: 10px; /* Внутренние отступы */
-    margin: 0; /* Убираем отступы */
-    display: flex; /* Используем Flexbox для центрирования текста */
-    justify-content: center; /* Центрируем текст по горизонтали */
-    align-items: center; /* Центрируем текст по вертикали */
-    border-radius: 8px;
-    min-width: 0;
-}
-
-
-

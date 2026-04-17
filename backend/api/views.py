@@ -8,7 +8,7 @@ from django.middleware.csrf import get_token
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from content.models import Image, Video, Poem
+from content.models import Image, Poem
 from memories.models import GuestbookEntry, Memory
 from .serializers import (ImageSerializer, MemorySerializer,
                           GuestbookEntrySerializer, PoemSerializer)
@@ -49,8 +49,11 @@ def memories(request):
 
 def list_videos(request):
     video_dir = os.path.join(settings.MEDIA_ROOT, 'videos')
+    if not os.path.isdir(video_dir):
+        return JsonResponse([], safe=False)
     videos = [f for f in os.listdir(video_dir) if f.endswith('.webm')]
-    video_urls = [f"http://127.0.0.1:8000/media/videos/{video}" for video in videos]
+    base = request.build_absolute_uri(settings.MEDIA_URL)
+    video_urls = [f"{base}videos/{video}" for video in videos]
     return JsonResponse(video_urls, safe=False)
 
 
